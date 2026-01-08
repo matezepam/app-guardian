@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Leaf, Menu, X, LogOut, User, LayoutDashboard } from 'lucide-react';
+import { Leaf, Menu, X, LogOut, User, LayoutDashboard, Lightbulb, Globe } from 'lucide-react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -33,6 +33,17 @@ export default function Navbar() {
             <Link to="/" className="text-gray-600 hover:text-green-600 font-medium transition-colors">
               Inicio
             </Link>
+
+            <Link to="/tips" className="flex items-center gap-2 text-gray-600 hover:text-green-600 font-medium transition-colors">
+              <Lightbulb className="h-4 w-4" />
+              Tips Eco
+            </Link>
+
+            <Link to="/impact" className="flex items-center gap-2 text-gray-600 hover:text-green-600 font-medium transition-colors">
+              <Globe className="h-4 w-4" />
+              Impacto
+            </Link>
+
             {user ? (
               <>
                 <Link to="/dashboard" className="flex items-center gap-2 text-gray-600 hover:text-green-600 font-medium transition-colors">
@@ -90,46 +101,36 @@ export default function Navbar() {
             className="md:hidden bg-white border-b border-green-100 overflow-hidden"
           >
             <div className="px-4 pt-2 pb-6 space-y-2">
-              <Link 
-                to="/" 
-                onClick={() => setIsOpen(false)}
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-green-600 hover:bg-green-50"
-              >
+              <Link to="/" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-green-600 hover:bg-green-50">
                 Inicio
               </Link>
+
+              <Link to="/tips" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-green-600 hover:bg-green-50">
+                Tips Eco
+              </Link>
+
+              <Link to="/impact" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-green-600 hover:bg-green-50">
+                Impacto Ambiental
+              </Link>
+
               {user ? (
                 <>
-                  <Link 
-                    to="/dashboard" 
-                    onClick={() => setIsOpen(false)}
-                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-green-600 hover:bg-green-50"
-                  >
+                  <Link to="/dashboard" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-green-600 hover:bg-green-50">
                     Dashboard
                   </Link>
                   <div className="px-3 py-2 text-sm text-gray-500 font-medium">
                     Hola, {user.username}
                   </div>
-                  <button 
-                    onClick={handleLogout}
-                    className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-red-600 hover:bg-red-50"
-                  >
+                  <button onClick={handleLogout} className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-red-600 hover:bg-red-50">
                     Cerrar Sesión
                   </button>
                 </>
               ) : (
                 <>
-                  <Link 
-                    to="/login" 
-                    onClick={() => setIsOpen(false)}
-                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-green-600 hover:bg-green-50"
-                  >
+                  <Link to="/login" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-green-600 hover:bg-green-50">
                     Iniciar Sesión
                   </Link>
-                  <Link 
-                    to="/register" 
-                    onClick={() => setIsOpen(false)}
-                    className="block px-3 py-2 rounded-md text-base font-medium text-green-600 bg-green-50 hover:bg-green-100"
-                  >
+                  <Link to="/register" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-green-600 bg-green-50 hover:bg-green-100">
                     Registrarse
                   </Link>
                 </>
