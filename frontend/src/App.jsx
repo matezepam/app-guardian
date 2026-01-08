@@ -6,6 +6,9 @@ import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Tips from './pages/Tips';
+import Impact from './pages/Impact';
+import ImpactPost from './pages/Impact/ImpactPost';
 
 function PrivateRoute({ children }) {
   const { user } = useAuth();
@@ -23,6 +26,9 @@ function App() {
               <Route path="/" element={<Landing />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/impact" element={<Impact />} />
+              <Route path="/impact/:slug" element={<ImpactPost />} />
+              <Route path="/tips" element={<Tips />} />
               <Route 
                 path="/dashboard" 
                 element={
