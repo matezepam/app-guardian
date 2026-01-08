@@ -1,3 +1,4 @@
+// src/pages/Impact/ImpactData.js
 const impactData = [
   {
     slug: 'oceans',
@@ -84,4 +85,45 @@ La contaminación por plástico afecta la pesca, turismo y economía local de mu
       },
     ],
   },
-]
+
+
+  {
+    slug: 'animals',
+    title: 'Animales afectados por la basura',
+    coverImage: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee',
+    sections: [
+      {
+        subtitle: 'Cómo afecta la basura',
+        content: `...`,
+        image: 'https://images.unsplash.com/photo-1592194996308-7b43878e84a6',
+      },
+      // más secciones aquí...
+    ],
+  },
+  {
+    slug: 'floor',
+    title: 'Contaminación del suelo',
+    coverImage: 'https://images.unsplash.com/photo-1581091215367-59ab6b9c8b67',
+    sections: [
+      {
+        subtitle: 'Impacto de los residuos',
+        content: `...`,
+        image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38',
+      },
+      // más secciones aquí...
+    ],
+  },
+  {
+    slug: 'weather',
+    title: 'Cambio climático y residuos',
+    coverImage: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470',
+    sections: [
+      {
+        subtitle: 'Gases de efecto invernadero',
+        content: `...`,
+      },
+    ],
+  },
+];
+
+export default impactData;
