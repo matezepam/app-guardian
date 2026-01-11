@@ -45,7 +45,7 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    
+
     if (formData.password !== formData.confirmPassword) {
         setError('Las contraseñas no coinciden');
         return;
@@ -58,7 +58,6 @@ export default function Register() {
         username: formData.username,
         email: formData.email,
         password: formData.password,
-        // We send extra fields. Backend needs to support them in User content type.
         firstName: formData.firstName,
         lastName: formData.lastName,
         phone: formData.phone,
@@ -82,7 +81,6 @@ export default function Register() {
 
   return (
     <div className="min-h-screen flex">
-      {/* Left Side - Image */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
         <img 
           src="https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?auto=format&fit=crop&q=80&w=1200" 
@@ -256,7 +254,7 @@ export default function Register() {
               {loading ? <Loader2 className="h-6 w-6 animate-spin" /> : <>Registrarme <ArrowRight className="h-6 w-6" /></>}
             </button>
           </form>
-          
+
           <p className="mt-8 text-center text-gray-500">
             ¿Ya tienes cuenta?{' '}
             <Link to="/login" className="font-bold text-teal-600 hover:text-teal-700 hover:underline">
