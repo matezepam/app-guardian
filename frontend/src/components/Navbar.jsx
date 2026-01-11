@@ -4,25 +4,18 @@ import {
   Leaf,
   Menu,
   X,
-  LogOut,
-  User,
   LayoutDashboard,
   Lightbulb,
   Globe
 } from 'lucide-react'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import ProfileMenu from './profile/ProfileMenu'
 
 export default function Navbar() {
-  const { user, logout } = useAuth()
+  const { user } = useAuth()
   const [isOpen, setIsOpen] = useState(false)
   const navigate = useNavigate()
-
-  const handleLogout = () => {
-    logout()
-    navigate('/')
-    setIsOpen(false)
-  }
 
   return (
     <nav className="fixed w-full z-50 bg-slate-900/80 backdrop-blur-xl border-b border-slate-800">
@@ -45,41 +38,19 @@ export default function Navbar() {
             </Link>
 
             <div className="relative group">
-              <motion.div
-                whileHover={{ scale: 1.15 }}
-                className="p-2 rounded-full hover:bg-white/5 transition"
-              >
+              <motion.div whileHover={{ scale: 1.15 }} className="p-2 rounded-full hover:bg-white/5">
                 <Link to="/tips">
                   <Lightbulb className="h-5 w-5 text-emerald-400" />
                 </Link>
               </motion.div>
-
-              <motion.span
-                initial={{ opacity: 0, y: 6 }}
-                whileHover={{ opacity: 1, y: 0 }}
-                className="pointer-events-none absolute top-11 left-1/2 -translate-x-1/2 text-xs bg-slate-800 text-slate-200 px-3 py-1 rounded-full shadow-xl"
-              >
-                Tips Eco
-              </motion.span>
             </div>
 
             <div className="relative group">
-              <motion.div
-                whileHover={{ scale: 1.15 }}
-                className="p-2 rounded-full hover:bg-white/5 transition"
-              >
+              <motion.div whileHover={{ scale: 1.15 }} className="p-2 rounded-full hover:bg-white/5">
                 <Link to="/impact">
                   <Globe className="h-5 w-5 text-emerald-400" />
                 </Link>
               </motion.div>
-
-              <motion.span
-                initial={{ opacity: 0, y: 6 }}
-                whileHover={{ opacity: 1, y: 0 }}
-                className="pointer-events-none absolute top-11 left-1/2 -translate-x-1/2 text-xs bg-slate-800 text-slate-200 px-3 py-1 rounded-full shadow-xl"
-              >
-                Impacto
-              </motion.span>
             </div>
 
             {user ? (
@@ -92,18 +63,8 @@ export default function Navbar() {
                   Dashboard
                 </Link>
 
-                <div className="flex items-center gap-4 pl-4 border-l border-slate-700">
-                  <div className="flex items-center gap-2 text-slate-400 text-sm">
-                    <User className="h-4 w-4" />
-                    {user.username}
-                  </div>
-                  <button
-                    onClick={handleLogout}
-                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 text-red-400 hover:bg-red-500/20 transition text-sm"
-                  >
-                    <LogOut className="h-4 w-4" />
-                    Salir
-                  </button>
+                <div className="pl-4 border-l border-slate-700">
+                  <ProfileMenu />
                 </div>
               </>
             ) : (
@@ -122,10 +83,7 @@ export default function Navbar() {
           </div>
 
           <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-slate-300 hover:text-white"
-            >
+            <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-slate-300">
               {isOpen ? <X /> : <Menu />}
             </button>
           </div>
@@ -141,37 +99,14 @@ export default function Navbar() {
             className="md:hidden bg-slate-900 border-t border-slate-800"
           >
             <div className="px-6 py-6 space-y-4">
-              <Link to="/" onClick={() => setIsOpen(false)} className="block text-slate-300 hover:text-white">
-                Inicio
-              </Link>
-              <Link to="/tips" onClick={() => setIsOpen(false)} className="block text-slate-300 hover:text-white">
-                Tips Eco
-              </Link>
-              <Link to="/impact" onClick={() => setIsOpen(false)} className="block text-slate-300 hover:text-white">
-                Impacto
-              </Link>
+              <Link to="/" onClick={() => setIsOpen(false)}>Inicio</Link>
+              <Link to="/tips" onClick={() => setIsOpen(false)}>Tips Eco</Link>
+              <Link to="/impact" onClick={() => setIsOpen(false)}>Impacto</Link>
 
-              {user ? (
-                <>
-                  <Link to="/dashboard" onClick={() => setIsOpen(false)} className="block text-slate-300 hover:text-white">
-                    Dashboard
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="w-full text-left text-red-400 hover:text-red-300"
-                  >
-                    Cerrar sesión
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link to="/login" onClick={() => setIsOpen(false)} className="block text-slate-300 hover:text-white">
-                    Iniciar Sesión
-                  </Link>
-                  <Link to="/register" onClick={() => setIsOpen(false)} className="block text-emerald-400">
-                    Registrarse
-                  </Link>
-                </>
+              {user && (
+                <Link to="/dashboard" onClick={() => setIsOpen(false)}>
+                  Dashboard
+                </Link>
               )}
             </div>
           </motion.div>
