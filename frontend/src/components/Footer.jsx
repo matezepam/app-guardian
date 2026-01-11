@@ -1,84 +1,157 @@
-import { Leaf, Droplets, Zap, Trash2, Heart, Mail, Phone, MapPin, LayoutDashboard, User } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
-import { Link } from 'react-router-dom';
+import {
+  Leaf,
+  Droplets,
+  Zap,
+  Recycle,
+  Globe,
+  Phone,
+  MapPin,
+  LayoutDashboard,
+  Heart,
+  AtSign,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Footer() {
   const { user } = useAuth();
 
   return (
-    <footer className={`pt-16 pb-8 transition-colors duration-300 ${user ? 'bg-green-900 border-t-4 border-green-500 text-green-50' : 'bg-gray-900 text-gray-300'}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          {/* Brand */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <Leaf className={`h-6 w-6 ${user ? 'text-white' : 'text-green-500'}`} />
-              <span className="text-2xl font-bold text-white">EcoGuardian</span>
+    <footer className="bg-slate-950 text-slate-300">
+      <div className="max-w-7xl mx-auto px-6 pt-24 pb-12">
+        <div className="grid gap-16 lg:grid-cols-5">
+          <div className="lg:col-span-2 space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500 flex items-center justify-center">
+                <Leaf className="text-slate-900" />
+              </div>
+              <span className="text-2xl font-extrabold text-white">
+                Guardian
+              </span>
             </div>
-            <p className={`text-sm leading-relaxed ${user ? 'text-green-100' : 'text-gray-400'}`}>
-              {user ? 
-                "Gracias por ser parte del cambio. Juntos estamos construyendo un futuro más sostenible." :
-                "Empoderando a las personas para tomar el control de su impacto ambiental. Pequeños cambios hacen una gran diferencia."
-              }
+
+            <p className="text-slate-400 leading-relaxed max-w-md">
+              Guardian es una plataforma diseñada para transformar hábitos
+              cotidianos en decisiones sostenibles. Medimos, analizamos y
+              acompañamos a personas comprometidas con el cuidado del planeta.
             </p>
+
+            <div className="flex gap-4 flex-wrap">
+              <span className="px-4 py-2 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-semibold">
+                Sostenibilidad
+              </span>
+              <span className="px-4 py-2 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-semibold">
+                Tecnología
+              </span>
+              <span className="px-4 py-2 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-semibold">
+                Impacto real
+              </span>
+            </div>
           </div>
 
-          {/* Quick Links / Navigation */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">
-              {user ? "Navegación" : "Enlaces Rápidos"}
+            <h3 className="text-white font-bold text-lg mb-6">
+              Plataforma
             </h3>
-            <ul className="space-y-2">
+            <ul className="space-y-4">
               {user ? (
                 <>
-                  <li><Link to="/dashboard" className="hover:text-green-400 transition-colors flex items-center gap-2"><LayoutDashboard className="h-4 w-4" /> Dashboard</Link></li>
-                  <li><Link to="/" className="hover:text-green-400 transition-colors flex items-center gap-2"><Leaf className="h-4 w-4" /> Inicio</Link></li>
+                  <li>
+                    <Link
+                      to="/dashboard"
+                      className="flex items-center gap-3 hover:text-emerald-400 transition"
+                    >
+                      <LayoutDashboard className="h-4 w-4" />
+                      Dashboard
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/"
+                      className="flex items-center gap-3 hover:text-emerald-400 transition"
+                    >
+                      <Leaf className="h-4 w-4" />
+                      Inicio
+                    </Link>
+                  </li>
                 </>
               ) : (
                 <>
-                  <li><Link to="/" className="hover:text-green-400 transition-colors">Inicio</Link></li>
-                  <li><Link to="/login" className="hover:text-green-400 transition-colors">Iniciar Sesión</Link></li>
-                  <li><Link to="/register" className="hover:text-green-400 transition-colors">Registrarse</Link></li>
+                  <li>
+                    <Link to="/" className="hover:text-emerald-400 transition">
+                      Inicio
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/login" className="hover:text-emerald-400 transition">
+                      Iniciar sesión
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/register"
+                      className="hover:text-emerald-400 transition"
+                    >
+                      Crear cuenta
+                    </Link>
+                  </li>
                 </>
               )}
             </ul>
           </div>
 
-          {/* Resources - Always visible but maybe different context */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">
-              {user ? "Tus Guías" : "Recursos"}
+            <h3 className="text-white font-bold text-lg mb-6">
+              Nuestro impacto
             </h3>
-            <ul className="space-y-2">
-              <li className="flex items-center gap-2"><Droplets className="h-4 w-4" /> Ahorro de Agua</li>
-              <li className="flex items-center gap-2"><Zap className="h-4 w-4" /> Eficiencia Energética</li>
-              <li className="flex items-center gap-2"><Trash2 className="h-4 w-4" /> Reciclaje</li>
+            <ul className="space-y-4">
+              <li className="flex items-center gap-3">
+                <Droplets className="h-4 w-4 text-blue-400" />
+                Uso responsable del agua
+              </li>
+              <li className="flex items-center gap-3">
+                <Zap className="h-4 w-4 text-yellow-400" />
+                Eficiencia energética
+              </li>
+              <li className="flex items-center gap-3">
+                <Recycle className="h-4 w-4 text-emerald-400" />
+                Reducción de residuos
+              </li>
+              <li className="flex items-center gap-3">
+                <Globe className="h-4 w-4 text-emerald-400" />
+                Conciencia ambiental
+              </li>
             </ul>
           </div>
 
-          {/* Contact */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Contacto</h3>
-            <ul className="space-y-4">
-              <li className="flex items-center gap-3">
-                <Mail className="h-5 w-5 text-green-500" />
-                <span>contacto@ecoguardian.com</span>
+            <h3 className="text-white font-bold text-lg mb-6">
+              Contacto
+            </h3>
+            <ul className="space-y-5">
+              <li className="flex items-center gap-4">
+                <AtSign className="h-5 w-5 text-emerald-400" />
+                eco.guardian@enviroment.com
               </li>
-              <li className="flex items-center gap-3">
-                <Phone className="h-5 w-5 text-green-500" />
-                <span>+1 234 567 890</span>
+              <li className="flex items-center gap-4">
+                <Phone className="h-5 w-5 text-emerald-400" />
+                +593 97 971 0437
               </li>
-              <li className="flex items-center gap-3">
-                <MapPin className="h-5 w-5 text-green-500" />
-                <span>Planeta Tierra</span>
+              <li className="flex items-center gap-4">
+                <MapPin className="h-5 w-5 text-emerald-400" />
+                Planeta Tierra
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 pt-8 text-center">
-          <p className="flex items-center justify-center gap-2 text-sm text-gray-500">
-            Hecho con <Heart className="h-4 w-4 text-red-500" /> por EcoGuardian Team &copy; {new Date().getFullYear()}
+        <div className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
+          <p className="text-sm text-slate-500">
+            © {new Date().getFullYear()} EcoGuardian. Todos los derechos reservados.
+          </p>
+
+          <p className="flex items-center gap-2 text-sm text-slate-500">
+            Hecho con <Heart className="h-4 w-4 text-red-500" /> por EcoGuardian Team
           </p>
         </div>
       </div>
