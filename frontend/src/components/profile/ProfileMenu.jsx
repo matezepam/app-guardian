@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { User, LogOut, Settings } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
@@ -7,7 +7,12 @@ import { useNavigate } from 'react-router-dom'
 export default function ProfileMenu() {
   const { user, logout } = useAuth()
   const [open, setOpen] = useState(false)
+  const [currentUser, setCurrentUser] = useState(user)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    setCurrentUser(user)
+  }, [user])
 
   const handleLogout = () => {
     logout()
@@ -17,19 +22,25 @@ export default function ProfileMenu() {
 
   return (
     <div className="relative">
-      {/* ICONO PERFIL */}
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setOpen(!open)}
         className="flex items-center gap-2 p-2 rounded-full hover:bg-white/5 transition"
       >
-        <div className="w-9 h-9 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold uppercase">
-          {user?.username?.charAt(0)}
-        </div>
+        {currentUser?.avatar ? (
+          <img
+            src={currentUser.avatar}
+            alt="avatar"
+            className="w-9 h-9 rounded-full object-cover"
+          />
+        ) : (
+          <div className="w-9 h-9 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold uppercase">
+            {currentUser?.username?.charAt(0)}
+          </div>
+        )}
       </motion.button>
 
-      {/* DROPDOWN */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -39,15 +50,13 @@ export default function ProfileMenu() {
             transition={{ duration: 0.2 }}
             className="absolute right-0 mt-3 w-64 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden z-50"
           >
-            {/* USER INFO */}
             <div className="px-5 py-4 border-b border-slate-800">
               <p className="text-sm text-slate-400">Conectado como</p>
               <p className="font-semibold text-white truncate">
-                {user?.email}
+                {currentUser?.email}
               </p>
             </div>
 
-            {/* ACTIONS */}
             <div className="py-2">
               <button
                 onClick={() => {
@@ -72,7 +81,6 @@ export default function ProfileMenu() {
               </button>
             </div>
 
-            {/* LOGOUT */}
             <div className="border-t border-slate-800">
               <button
                 onClick={handleLogout}
