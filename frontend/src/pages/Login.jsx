@@ -30,13 +30,12 @@ export default function Login() {
     } catch {
       setError('Error de conexión');
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen flex">
-      {/* Left Side - Image */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
         <img 
           src="https://images.unsplash.com/photo-1497250681960-ef048c0ab947?auto=format&fit=crop&q=80&w=1200" 
@@ -51,7 +50,6 @@ export default function Login() {
         </div>
       </div>
 
-      {/* Right Side - Form */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white">
         <motion.div 
           initial={{ opacity: 0, x: 20 }}
@@ -81,8 +79,8 @@ export default function Login() {
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 group-focus-within:text-green-500 transition-colors" />
                 <input 
                   type="email" 
-                  className="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-200 focus:border-green-500 focus:ring-4 focus:ring-green-500/10 outline-none transition-all bg-gray-50 focus:bg-white"
-                  placeholder="tu@email.com"
+                  className="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-200 focus:border-green-500 focus:ring-4 focus:ring-green-500/10 outline-none transition-all bg-gray-50 focus:bg-white text-gray-900 placeholder-gray-400"
+                  placeholder="matezepam@hotmail.com"
                   value={identifier}
                   onChange={(e) => setIdentifier(e.target.value)}
                   required
@@ -92,14 +90,14 @@ export default function Login() {
             
             <div>
               <div className="flex justify-between mb-2 ml-1">
-                  <label className="block text-sm font-semibold text-gray-700">Contraseña</label>
-                  <a href="#" className="text-sm text-green-600 hover:text-green-700 font-medium hover:underline">¿Olvidaste tu contraseña?</a>
+                <label className="block text-sm font-semibold text-gray-700">Contraseña</label>
+                <a href="#" className="text-sm text-green-600 hover:text-green-700 font-medium hover:underline">¿Olvidaste tu contraseña?</a>
               </div>
               <div className="relative group">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 group-focus-within:text-green-500 transition-colors" />
                 <input 
                   type="password" 
-                  className="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-200 focus:border-green-500 focus:ring-4 focus:ring-green-500/10 outline-none transition-all bg-gray-50 focus:bg-white"
+                  className="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-200 focus:border-green-500 focus:ring-4 focus:ring-green-500/10 outline-none transition-all bg-gray-50 focus:bg-white text-gray-900 placeholder-gray-400"
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
