@@ -1,67 +1,183 @@
-import { User, Mail, Shield } from 'lucide-react'
-import { useAuth } from '../../context/AuthContext'
-import { motion } from 'framer-motion'
+import { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
+import { motion } from "framer-motion";
+import { Mail, MapPin, Phone, Info, AtSign } from "lucide-react";
+import AvatarUploader from "./AvatarUploader";
 
 export default function Profile() {
-  const { user } = useAuth()
+  const { user, login } = useAuth();
+  const [avatar, setAvatar] = useState(user?.avatar || "");
+  const [firstName, setFirstName] = useState(user?.firstName || "");
+  const [lastName, setLastName] = useState(user?.lastName || "");
+  const [description, setDescription] = useState(user?.description || "");
+  const [pronouns, setPronouns] = useState(user?.pronouns || "");
+  const [twitter, setTwitter] = useState(user?.twitter || "");
+  const [instagram, setInstagram] = useState(user?.instagram || "");
+  const [linkedin, setLinkedin] = useState(user?.linkedin || "");
+
+  if (!user) return null;
+
+  const handleSave = () => {
+    const formatLink = (link, prefix) => {
+      if (!link) return "";
+      if (link.startsWith("http")) return link;
+      return prefix + link.replace(/^@/, "");
+    };
+
+    const updatedUser = {
+      ...user,
+      avatar,
+      firstName,
+      lastName,
+      description,
+      pronouns,
+      twitter: formatLink(twitter, "https://twitter.com/"),
+      instagram: formatLink(instagram, "https://instagram.com/"),
+      linkedin: formatLink(linkedin, "https://linkedin.com/in/"),
+    };
+
+    login(updatedUser, localStorage.getItem("token"));
+    alert("Perfil actualizado");
+  };
 
   return (
     <div className="min-h-screen bg-slate-950 pt-24 px-6">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-5xl mx-auto space-y-8">
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-slate-900 border border-slate-800 rounded-2xl p-8"
+          className="bg-slate-900 border border-slate-800 rounded-2xl p-8 flex flex-col md:flex-row gap-8"
         >
-          <div className="flex items-center gap-6 mb-8">
-            <div className="p-5 rounded-full bg-emerald-500/10">
-              <User className="h-10 w-10 text-emerald-400" />
+          <div className="flex flex-col items-center md:items-start gap-6 w-full md:w-1/3">
+            <div className="relative md:translate-x-24">
+              <img
+                src={avatar || "https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg"}
+                alt="Avatar"
+                className="w-32 h-32 rounded-full border-4 border-emerald-500/20 object-cover"
+              />
             </div>
 
-            <div>
-              <h1 className="text-2xl font-semibold text-white">
-                Perfil de Usuario
-              </h1>
-              <p className="text-slate-400 text-sm">
-                Información de tu cuenta
-              </p>
-            </div>
+            <AvatarUploader
+              currentAvatar={avatar}
+              onUpload={(url) => setAvatar(url)}
+            />
           </div>
 
-          <div className="space-y-6">
+          <div className="flex-1 w-full md:w-2/3 space-y-6">
+            <div className="flex flex-col gap-3 bg-slate-800/40 p-4 rounded-xl">
+              <h2 className="text-white font-semibold text-lg">Información Personal</h2>
+              <div className="flex gap-4">
+                <input
+                  type="text"
+                  placeholder="Nombre"
+                  value={firstName}
+                  onChange={e => setFirstName(e.target.value)}
+                  className="flex-1 bg-slate-900/50 p-2 rounded-lg text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                />
+                <input
+                  type="text"
+                  placeholder="Apellido"
+                  value={lastName}
+                  onChange={e => setLastName(e.target.value)}
+                  className="flex-1 bg-slate-900/50 p-2 rounded-lg text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                />
+              </div>
+              <input
+                type="text"
+                placeholder="Pronombres (ej. él/ella/elle)"
+                value={pronouns}
+                onChange={e => setPronouns(e.target.value)}
+                className="w-full bg-slate-900/50 p-2 rounded-lg text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              />
+            </div>
 
-            <div className="flex items-center gap-4 bg-slate-800/40 p-4 rounded-xl">
-              <User className="text-emerald-400" />
-              <div>
-                <p className="text-xs text-slate-400">Usuario</p>
-                <p className="text-white">{user?.username}</p>
+            <div className="flex flex-col gap-3 bg-slate-800/40 p-4 rounded-xl">
+              <h2 className="text-white font-semibold text-lg">Cuenta</h2>
+              <p className="text-slate-400">Usuario: {user.username}</p>
+              <p className="text-slate-400 flex items-center gap-2">
+                <Mail className="h-4 w-4 text-emerald-400" />
+                {user.email}
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-2 bg-slate-800/40 p-4 rounded-xl">
+              <h2 className="text-white font-semibold flex items-center gap-2">
+                <Info className="text-emerald-400 h-5 w-5" />
+                Descripción
+              </h2>
+              <textarea
+                placeholder="Escribe algo sobre ti..."
+                value={description}
+                onChange={e => setDescription(e.target.value)}
+                className="w-full bg-slate-800/50 p-2 rounded-lg text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400 resize-none"
+                rows={3}
+              />
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-4 bg-slate-800/40 p-4 rounded-xl">
+                <MapPin className="h-5 w-5 text-emerald-400" />
+                <input
+                  type="text"
+                  placeholder="País"
+                  value={user.country || ""}
+                  className="w-full bg-slate-800/50 p-2 rounded-lg text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                  readOnly
+                />
+              </div>
+
+              <div className="flex items-center gap-4 bg-slate-800/40 p-4 rounded-xl">
+                <Phone className="h-5 w-5 text-emerald-400" />
+                <input
+                  type="text"
+                  placeholder="Teléfono"
+                  value={user.phone || ""}
+                  className="w-full bg-slate-800/50 p-2 rounded-lg text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                  readOnly
+                />
               </div>
             </div>
 
-            <div className="flex items-center gap-4 bg-slate-800/40 p-4 rounded-xl">
-              <Mail className="text-emerald-400" />
-              <div>
-                <p className="text-xs text-slate-400">Email</p>
-                <p className="text-white">
-                  {user?.email || 'No registrado'}
-                </p>
+            <div className="flex flex-col gap-2 bg-slate-800/40 p-4 rounded-xl">
+              <h2 className="text-white font-semibold flex items-center gap-2">
+                <AtSign className="text-emerald-400 h-5 w-5" />
+                Redes Sociales
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+                <input
+                  type="text"
+                  placeholder="Twitter"
+                  value={twitter}
+                  onChange={e => setTwitter(e.target.value)}
+                  className="w-full bg-slate-800/50 p-2 rounded-lg text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                />
+                <input
+                  type="text"
+                  placeholder="Instagram"
+                  value={instagram}
+                  onChange={e => setInstagram(e.target.value)}
+                  className="w-full bg-slate-800/50 p-2 rounded-lg text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                />
+                <input
+                  type="text"
+                  placeholder="LinkedIn"
+                  value={linkedin}
+                  onChange={e => setLinkedin(e.target.value)}
+                  className="w-full bg-slate-800/50 p-2 rounded-lg text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                />
               </div>
             </div>
 
-            <div className="flex items-center gap-4 bg-slate-800/40 p-4 rounded-xl">
-              <Shield className="text-emerald-400" />
-              <div>
-                <p className="text-xs text-slate-400">Rol</p>
-                <p className="text-white">
-                  {user?.role || 'Usuario'}
-                </p>
-              </div>
-            </div>
-
+            <button
+              onClick={handleSave}
+              className="w-full flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 transition text-white font-semibold"
+            >
+              Guardar Cambios
+            </button>
           </div>
         </motion.div>
       </div>
     </div>
-  )
+  );
 }
