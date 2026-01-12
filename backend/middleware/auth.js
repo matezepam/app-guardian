@@ -9,6 +9,7 @@ module.exports = (req, res, next) => {
     req.user = verified;
     next();
   } catch (err) {
+    console.error("JWT verification error:", err);
     res.status(400).json({ error: { message: 'Invalid token' } });
   }
 };
