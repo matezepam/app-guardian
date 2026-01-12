@@ -1,23 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { motion } from "framer-motion";
 import { Mail, MapPin, Phone, Info, AtSign } from "lucide-react";
 import AvatarUploader from "./AvatarUploader";
+import { api } from "../../utils/api";
 
 export default function Profile() {
   const { user, login } = useAuth();
   const [avatar, setAvatar] = useState(user?.avatar || "");
   const [firstName, setFirstName] = useState(user?.firstName || "");
   const [lastName, setLastName] = useState(user?.lastName || "");
-  const [description, setDescription] = useState(user?.description || "");
+  const [bio, setBio] = useState(user?.bio || "");
   const [pronouns, setPronouns] = useState(user?.pronouns || "");
-  const [twitter, setTwitter] = useState(user?.twitter || "");
-  const [instagram, setInstagram] = useState(user?.instagram || "");
-  const [linkedin, setLinkedin] = useState(user?.linkedin || "");
+  const [twitter, setTwitter] = useState(user?.socials?.twitter || "");
+  const [instagram, setInstagram] = useState(user?.socials?.instagram || "");
+  const [linkedin, setLinkedin] = useState(user?.socials?.linkedin || "");
+
+  useEffect(() => {
+    setAvatar(user?.avatar || "");
+    setFirstName(user?.firstName || "");
+    setLastName(user?.lastName || "");
+    setBio(user?.bio || "");
+    setPronouns(user?.pronouns || "");
+    setTwitter(user?.socials?.twitter || "");
+    setInstagram(user?.socials?.instagram || "");
+    setLinkedin(user?.socials?.linkedin || "");
+  }, [user]);
 
   if (!user) return null;
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const formatLink = (link, prefix) => {
       if (!link) return "";
       if (link.startsWith("http")) return link;
@@ -25,19 +37,26 @@ export default function Profile() {
     };
 
     const updatedUser = {
-      ...user,
-      avatar,
-      firstName,
-      lastName,
-      description,
-      pronouns,
-      twitter: formatLink(twitter, "https://twitter.com/"),
-      instagram: formatLink(instagram, "https://instagram.com/"),
-      linkedin: formatLink(linkedin, "https://linkedin.com/in/"),
+      avatar: avatar || user.avatar,
+      firstName: firstName || user.firstName,
+      lastName: lastName || user.lastName,
+      bio: bio || user.bio,
+      pronouns: pronouns || user.pronouns,
+      socials: {
+        twitter: formatLink(twitter, "https://twitter.com/"),
+        instagram: formatLink(instagram, "https://instagram.com/"),
+        linkedin: formatLink(linkedin, "https://linkedin.com/in/"),
+      },
     };
 
-    login(updatedUser, localStorage.getItem("token"));
-    alert("Perfil actualizado");
+    try {
+      const data = await api.put("/users/profile", updatedUser);
+      login(data, localStorage.getItem("token"));
+      alert("Perfil actualizado correctamente");
+    } catch (err) {
+      console.error("Error al actualizar perfil:", err);
+      alert("Hubo un error al actualizar el perfil");
+    }
   };
 
   return (
@@ -104,12 +123,12 @@ export default function Profile() {
             <div className="flex flex-col gap-2 bg-slate-800/40 p-4 rounded-xl">
               <h2 className="text-white font-semibold flex items-center gap-2">
                 <Info className="text-emerald-400 h-5 w-5" />
-                Descripción
+                Biografía
               </h2>
               <textarea
                 placeholder="Escribe algo sobre ti..."
-                value={description}
-                onChange={e => setDescription(e.target.value)}
+                value={bio}
+                onChange={e => setBio(e.target.value)}
                 className="w-full bg-slate-800/50 p-2 rounded-lg text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400 resize-none"
                 rows={3}
               />
