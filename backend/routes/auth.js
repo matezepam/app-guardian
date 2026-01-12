@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 router.post('/local/register', async (req, res) => {
   try {
     const { username, email, password, firstName, lastName, phone, country } = req.body;
-    
+
     const existingUser = await User.findOne({ $or: [{ email }, { username }] });
     if (existingUser) return res.status(400).json({ error: { message: 'User already exists' } });
 
@@ -24,18 +24,19 @@ router.post('/local/register', async (req, res) => {
     });
 
     const savedUser = await user.save();
-    const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET || 'secretKey');
+    const token = jwt.sign({ _id: savedUser._id }, process.env.JWT_SECRET || 'secretKey');
 
     res.json({
       jwt: token,
       user: {
-        id: savedUser._id,
+        _id: savedUser._id,
         username: savedUser.username,
         email: savedUser.email,
         firstName: savedUser.firstName,
         lastName: savedUser.lastName,
         phone: savedUser.phone,
-        country: savedUser.country
+        country: savedUser.country,
+        avatar: savedUser.avatar
       }
     });
   } catch (err) {
@@ -44,7 +45,6 @@ router.post('/local/register', async (req, res) => {
   }
 });
 
-// Login
 router.post('/local', async (req, res) => {
   try {
     const { identifier, password } = req.body;
@@ -54,18 +54,19 @@ router.post('/local', async (req, res) => {
     const validPass = await bcrypt.compare(password, user.password);
     if (!validPass) return res.status(400).json({ error: { message: 'Invalid email or password' } });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'secretKey');
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET || 'secretKey');
 
     res.json({
       jwt: token,
       user: {
-        id: user._id,
+        _id: user._id,
         username: user.username,
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
         phone: user.phone,
-        country: user.country
+        country: user.country,
+        avatar: user.avatar
       }
     });
   } catch (err) {
