@@ -37,7 +37,6 @@ export default function Impact() {
     <section className="pt-24 pb-20 bg-gradient-to-b from-gray-50 to-white min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -52,7 +51,6 @@ export default function Impact() {
           </p>
         </motion.div>
 
-        {/* Impact Sections */}
         <div className="space-y-24">
           {impacts.map((impact, index) => {
             const isReverse = index % 2 !== 0;
@@ -66,7 +64,6 @@ export default function Impact() {
                 transition={{ duration: 0.6 }}
                 className={`flex flex-col-reverse ${isReverse ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-12`}
               >
-                {/* Text */}
                 <div className="lg:w-1/2">
                   <h2 className="text-3xl font-semibold text-gray-800 mb-4">
                     {impact.title}
@@ -75,11 +72,9 @@ export default function Impact() {
                     {impact.description}
                   </p>
 
-                  {/* Botón Read more */}
                   <ReadMoreButton to={`/impact/${impact.slug}`} />
                 </div>
 
-                {/* Image */}
                 <div className="lg:w-1/2 w-full">
                   <div className="overflow-hidden rounded-2xl shadow-lg">
                     <img
