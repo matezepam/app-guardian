@@ -192,7 +192,7 @@ export const tipDetailData = {
   "reutiliza-antes-de-desechar": {
     title: "Reutilizar antes de desechar: La creatividad como antídoto al desperdicio",
     subtitle: "Dar una segunda vida a los objetos. Redescubrir el potencial oculto en lo que considerábamos basura.",
-    image: "https://images.unsplash.com/photo-1590080877777-8c4f42b0a3b2",
+    image: "https://blog.oxfamintermon.org/wp-content/uploads/2016/04/reciclaje-de-pl%C3%A1stico-726x483.jpg",
     sections: [
       {
         heading: "La pérdida de la cultura material: Cuando dejamos de saber arreglar las cosas",
