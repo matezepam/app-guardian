@@ -85,7 +85,7 @@ export default function Landing() {
             </h1>
 
             <p className="text-lg text-slate-300 max-w-xl mb-10">
-              EcoGuardian te permite medir, analizar y mejorar tu impacto ambiental
+              Guardian te permite medir, analizar y mejorar tu impacto ambiental
               con datos claros y decisiones conscientes.
             </p>
 
@@ -194,10 +194,13 @@ export default function Landing() {
       <section className="py-32 bg-emerald-600 text-white text-center">
         <div className="max-w-4xl mx-auto px-6">
           <h2 className="text-4xl font-extrabold mb-6">
-            El cambio empieza contigo
+            ¡No heredamos la Tierra, la cuidamos para quienes vienen!
           </h2>
           <p className="text-lg text-emerald-100 mb-10">
-            EcoGuardian es la herramienta que convierte conciencia en acción.
+          Vivimos en un mundo que necesita más conciencia, más responsabilidad y más acción.
+          Guardian nace para acompañarte en ese camino, ayudándote a transformar pequeñas
+          decisiones diarias en hábitos sostenibles que generan un impacto positivo en el
+          planeta. Cada paso cuenta, y el tuyo puede marcar la diferencia.
           </p>
 
           {!user && (
