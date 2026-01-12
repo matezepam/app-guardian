@@ -1,16 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import {
-  Leaf,
-  Menu,
-  X,
-  LayoutDashboard,
-  Lightbulb,
-  Globe
-} from 'lucide-react'
+import { Leaf, Menu, X, LayoutDashboard, Lightbulb, Globe, Gamepad, BarChart2 } from 'lucide-react'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import ProfileMenu from './Profile/ProfileMenu'
+import ProfileMenu from './profile/ProfileMenu'
 
 export default function Navbar() {
   const { user } = useAuth()
@@ -52,6 +45,24 @@ export default function Navbar() {
                 </Link>
               </motion.div>
             </div>
+
+            {user && (
+              <>
+                <Link
+                  to="/game"
+                  className="text-slate-300 hover:text-white transition p-2 rounded-full hover:bg-white/5"
+                >
+                  <Gamepad className="h-5 w-5 text-emerald-400" />
+                </Link>
+
+                <Link
+                  to="/leaderboard"
+                  className="text-slate-300 hover:text-white transition p-2 rounded-full hover:bg-white/5"
+                >
+                  <BarChart2 className="h-5 w-5 text-emerald-400" />
+                </Link>
+              </>
+            )}
 
             {user ? (
               <>
@@ -102,12 +113,9 @@ export default function Navbar() {
               <Link to="/" onClick={() => setIsOpen(false)}>Inicio</Link>
               <Link to="/tips" onClick={() => setIsOpen(false)}>Tips Eco</Link>
               <Link to="/impact" onClick={() => setIsOpen(false)}>Impacto</Link>
-
-              {user && (
-                <Link to="/dashboard" onClick={() => setIsOpen(false)}>
-                  Dashboard
-                </Link>
-              )}
+              {user && <Link to="/game" onClick={() => setIsOpen(false)}>Juego Eco</Link>}
+              {user && <Link to="/leaderboard" onClick={() => setIsOpen(false)}>Podio</Link>}
+              {user && <Link to="/dashboard" onClick={() => setIsOpen(false)}>Dashboard</Link>}
             </div>
           </motion.div>
         )}
