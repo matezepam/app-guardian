@@ -20,7 +20,7 @@ const impacts = [
     title: 'Contaminación del suelo',
     description:
       'Los desechos sólidos degradan el suelo, afectando cultivos y fuentes de agua subterránea.',
-    image: 'https://images.unsplash.com/photo-1581091215367-59ab6b9c8b67',
+    image: 'https://cdn0.ecologiaverde.com/es/posts/5/8/2/contaminacion_del_suelo_causas_consecuencias_y_soluciones_285_600.jpg',
     slug: 'floor',
   },
   {
