@@ -1,4 +1,5 @@
 import { createContext, useState, useContext, useEffect } from 'react';
+import { api } from '../utils/api';
 
 const AuthContext = createContext();
 
@@ -7,15 +8,10 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check for stored token
     const token = localStorage.getItem('token');
     const storedUser = localStorage.getItem('user');
     if (token && storedUser) {
-      // Optional: Verify token with backend here if needed
       setUser(JSON.parse(storedUser));
-    } else {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
     }
     setLoading(false);
   }, []);
