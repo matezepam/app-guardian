@@ -1,29 +1,30 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider, useAuth } from "./context/AuthContext";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
+import { AuthProvider, useAuth } from "./context/AuthContext"
 
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import Navbar from "./components/Navbar"
+import Footer from "./components/Footer"
 
-import Landing from "./pages/Landing";
-import Dashboard from "./pages/Dashboard";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Landing from "./pages/Landing"
+import Dashboard from "./pages/Dashboard"
+import Login from "./pages/Login"
+import Register from "./pages/Register"
 
-import Tips from "./pages/Tips";
-import TipDetail from "./pages/TipDetail/TipDetail";
+import Tips from "./pages/Tips"
+import TipDetail from "./pages/TipDetail/TipDetail"
 
-import Impact from "./pages/Impact";
-import ImpactPost from "./pages/Impact/ImpactPost";
+import Impact from "./pages/Impact"
+import ImpactPost from "./pages/Impact/ImpactPost"
 
-import Profile from "./pages/Profile/Profile";
-import Settings from "./pages/Profile/Settings";
+import Profile from "./pages/Profile/Profile"
+import Settings from "./pages/Profile/Settings"
+
+import RecyclingGame from "./pages/RecyclingGame/RecyclingGame"
+import LeaderboardPage from "./pages/RecyclingGame/LeaderboardPage"
 
 function PrivateRoute({ children }) {
-  const { user, loading } = useAuth();
-
-  if (loading) return null;
-
-  return user ? children : <Navigate to="/login" />;
+  const { user, loading } = useAuth()
+  if (loading) return null
+  return user ? children : <Navigate to="/login" />
 }
 
 function App() {
@@ -70,6 +71,24 @@ function App() {
                   </PrivateRoute>
                 }
               />
+
+              <Route
+                path="/game"
+                element={
+                  <PrivateRoute>
+                    <RecyclingGame />
+                  </PrivateRoute>
+                }
+              />
+
+              <Route
+                path="/leaderboard"
+                element={
+                  <PrivateRoute>
+                    <LeaderboardPage />
+                  </PrivateRoute>
+                }
+              />
             </Routes>
           </div>
 
@@ -78,7 +97,7 @@ function App() {
         </div>
       </Router>
     </AuthProvider>
-  );
+  )
 }
 
-export default App;
+export default App
