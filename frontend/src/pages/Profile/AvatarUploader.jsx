@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { api } from "../../utils/api"; 
 import { motion } from "framer-motion";
+import { useAuth } from "../../context/AuthContext";
 
 export default function AvatarUploader({ currentAvatar, onUpload }) {
+  const { user, login } = useAuth();
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(currentAvatar || "");
   const [loading, setLoading] = useState(false);
@@ -11,16 +13,8 @@ export default function AvatarUploader({ currentAvatar, onUpload }) {
   const handleFileChange = (e) => {
     const selected = e.target.files[0];
     if (!selected) return;
-
-    if (!selected.type.startsWith("image/")) {
-      setError("El archivo debe ser una imagen");
-      return;
-    }
-    if (selected.size > 2 * 1024 * 1024) {
-      setError("El archivo debe ser menor a 2MB");
-      return;
-    }
-
+    if (!selected.type.startsWith("image/")) { setError("El archivo debe ser una imagen"); return; }
+    if (selected.size > 2 * 1024 * 1024) { setError("El archivo debe ser menor a 2MB"); return; }
     setError("");
     setFile(selected);
     setPreview(URL.createObjectURL(selected));
@@ -28,43 +22,29 @@ export default function AvatarUploader({ currentAvatar, onUpload }) {
 
   const handleUpload = async () => {
     if (!file) return;
-
     const formData = new FormData();
     formData.append("avatar", file);
-
     try {
       setLoading(true);
-      const res = await api.post("/users/avatar", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
-      let data;
-      try {
-        data = await res.json(); 
-      } catch (err) {
-        console.error("No se pudo parsear JSON del backend:", err);
-        setError("Error en el servidor al subir la imagen");
-        return;
-      }
-
-      if (res.ok) {
-        onUpload(data.avatarUrl); 
+      const data = await api.put("/users/profile", formData, true);
+      if (data.avatar) {
+        const fullUrl = `http://localhost:5000${data.avatar}`;
+        onUpload(fullUrl);
+        setPreview(fullUrl);
+        login(data, localStorage.getItem("token"));
       } else {
         setError(data?.message || "Error al subir la imagen");
       }
     } catch (err) {
       console.error("Error en la petición:", err);
       setError("Error de conexión con el servidor");
-    } finally {
-      setLoading(false);
-    }
+    } finally { setLoading(false); }
   };
 
   return (
     <div className="bg-slate-800/50 p-4 rounded-2xl shadow-md max-w-sm mx-auto">
       <h3 className="text-md font-semibold mb-4 text-white">Cambiar Avatar</h3>
       {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-
       <div className="flex flex-col items-center gap-4">
         {preview && (
           <motion.img
@@ -75,22 +55,16 @@ export default function AvatarUploader({ currentAvatar, onUpload }) {
             animate={{ opacity: 1 }}
           />
         )}
-
         <input
           type="file"
           accept="image/*"
           onChange={handleFileChange}
           className="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-slate-700 file:text-emerald-400 hover:file:bg-slate-600"
         />
-
         <button
           onClick={handleUpload}
           disabled={!file || loading}
-          className={`w-full py-2 rounded-full text-white font-bold transition ${
-            file && !loading
-              ? "bg-emerald-500 hover:bg-emerald-600"
-              : "bg-gray-600 cursor-not-allowed"
-          }`}
+          className={`w-full py-2 rounded-full text-white font-bold transition ${file && !loading ? "bg-emerald-500 hover:bg-emerald-600" : "bg-gray-600 cursor-not-allowed"}`}
         >
           {loading ? "Subiendo..." : "Subir Avatar"}
         </button>
