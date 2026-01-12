@@ -125,8 +125,8 @@ export default function Register() {
                     <input 
                         type="text" 
                         name="firstName"
-                        className="w-full px-4 py-4 rounded-2xl border border-gray-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 outline-none transition-all bg-gray-50 focus:bg-white"
-                        placeholder="Juan"
+                        className="w-full px-4 py-4 rounded-2xl border border-gray-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 outline-none transition-all bg-gray-50 focus:bg-white text-gray-900 placeholder-gray-400"
+                        placeholder="Paulo"
                         value={formData.firstName}
                         onChange={handleChange}
                         required
@@ -137,8 +137,8 @@ export default function Register() {
                     <input 
                         type="text" 
                         name="lastName"
-                        className="w-full px-4 py-4 rounded-2xl border border-gray-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 outline-none transition-all bg-gray-50 focus:bg-white"
-                        placeholder="Pérez"
+                        className="w-full px-4 py-4 rounded-2xl border border-gray-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 outline-none transition-all bg-gray-50 focus:bg-white text-gray-900 placeholder-gray-400"
+                        placeholder="Salazar"
                         value={formData.lastName}
                         onChange={handleChange}
                         required
@@ -153,8 +153,8 @@ export default function Register() {
                 <input 
                   type="text" 
                   name="username"
-                  className="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 outline-none transition-all bg-gray-50 focus:bg-white"
-                  placeholder="JuanPerez2024"
+                  className="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 outline-none transition-all bg-gray-50 focus:bg-white text-gray-900 placeholder-gray-400"
+                  placeholder="matezepam"
                   value={formData.username}
                   onChange={handleChange}
                   required
@@ -169,8 +169,8 @@ export default function Register() {
                 <input 
                   type="email" 
                   name="email"
-                  className="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 outline-none transition-all bg-gray-50 focus:bg-white"
-                  placeholder="tu@email.com"
+                  className="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 outline-none transition-all bg-gray-50 focus:bg-white text-gray-900 placeholder-gray-400"
+                  placeholder="matezepam@hotmail.com"
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -202,7 +202,7 @@ export default function Register() {
                         <input 
                             type="tel" 
                             name="phone"
-                            className="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 outline-none transition-all bg-gray-50 focus:bg-white"
+                            className="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 outline-none transition-all bg-gray-50 focus:bg-white text-gray-900 placeholder-gray-400"
                             placeholder="+51 999..."
                             value={formData.phone}
                             onChange={handleChange}
@@ -220,7 +220,7 @@ export default function Register() {
                     <input 
                     type="password" 
                     name="password"
-                    className="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 outline-none transition-all bg-gray-50 focus:bg-white"
+                    className="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 outline-none transition-all bg-gray-50 focus:bg-white text-gray-900 placeholder-gray-400"
                     placeholder="••••••••"
                     value={formData.password}
                     onChange={handleChange}
@@ -236,7 +236,7 @@ export default function Register() {
                     <input 
                     type="password" 
                     name="confirmPassword"
-                    className="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 outline-none transition-all bg-gray-50 focus:bg-white"
+                    className="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-200 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 outline-none transition-all bg-gray-50 focus:bg-white text-gray-900 placeholder-gray-400"
                     placeholder="••••••••"
                     value={formData.confirmPassword}
                     onChange={handleChange}
