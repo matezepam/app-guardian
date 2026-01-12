@@ -50,9 +50,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-white font-bold text-lg mb-6">
-              Plataforma
-            </h3>
+            <h3 className="text-white font-bold text-lg mb-6">Plataforma</h3>
             <ul className="space-y-4">
               {user ? (
                 <>
@@ -83,7 +81,10 @@ export default function Footer() {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/login" className="hover:text-emerald-400 transition">
+                    <Link
+                      to="/login"
+                      className="hover:text-emerald-400 transition"
+                    >
                       Iniciar sesión
                     </Link>
                   </li>
@@ -125,9 +126,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-white font-bold text-lg mb-6">
-              Contacto
-            </h3>
+            <h3 className="text-white font-bold text-lg mb-6">Contacto</h3>
             <ul className="space-y-5">
               <li className="flex items-center gap-4">
                 <AtSign className="h-5 w-5 text-emerald-400" />
@@ -145,9 +144,11 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Footer bottom */}
         <div className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
           <p className="text-sm text-slate-500">
-            © {new Date().getFullYear()} EcoGuardian. Todos los derechos reservados.
+            © {new Date().getFullYear()} EcoGuardian. Todos los derechos
+            reservados.
           </p>
 
           <p className="flex items-center gap-2 text-sm text-slate-500">
