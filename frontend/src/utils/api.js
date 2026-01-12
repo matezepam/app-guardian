@@ -1,48 +1,41 @@
 const API_URL = '/api';
 
-export const getHeaders = () => {
+export const getHeaders = (isFormData = false) => {
   const token = localStorage.getItem('token');
-  return {
-    'Content-Type': 'application/json',
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
+  const headers = token ? { Authorization: `Bearer ${token}` } : {};
+  if (!isFormData) headers['Content-Type'] = 'application/json';
+  return headers;
+};
+
+const handleFetch = async (url, options = {}) => {
+  try {
+    const res = await fetch(url, options);
+    if (res.status === 401 || res.status === 403) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = '/login';
+      return { error: { message: "Session expired" } };
+    }
+    return await res.json();
+  } catch (err) {
+    return { error: { message: "Network Error" } };
+  }
 };
 
 export const api = {
-  get: async (endpoint) => {
-    try {
-      const res = await fetch(`${API_URL}${endpoint}`, {
-        headers: getHeaders(),
-      });
-      if (res.status === 401 || res.status === 403) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        window.location.href = '/login';
-        return { error: { message: "Session expired" } };
-      }
-      return await res.json();
-    } catch (error) {
-      console.error("API GET Error", error);
-      return { error: { message: "Network Error" } };
-    }
-  },
-  post: async (endpoint, data) => {
-    try {
-      const res = await fetch(`${API_URL}${endpoint}`, {
-        method: 'POST',
-        headers: getHeaders(),
-        body: JSON.stringify(data),
-      });
-      if (res.status === 401 || res.status === 403) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        window.location.href = '/login';
-        return { error: { message: "Session expired" } };
-      }
-      return await res.json();
-    } catch (error) {
-      console.error("API POST Error", error);
-      return { error: { message: "Network Error" } };
-    }
-  },
+  get: async (endpoint) => handleFetch(`${API_URL}${endpoint}`, { headers: getHeaders() }),
+  post: async (endpoint, data, isFormData = false) => handleFetch(`${API_URL}${endpoint}`, {
+    method: 'POST',
+    headers: getHeaders(isFormData),
+    body: isFormData ? data : JSON.stringify(data),
+  }),
+  put: async (endpoint, data, isFormData = false) => handleFetch(`${API_URL}${endpoint}`, {
+    method: 'PUT',
+    headers: getHeaders(isFormData),
+    body: isFormData ? data : JSON.stringify(data),
+  }),
+  delete: async (endpoint) => handleFetch(`${API_URL}${endpoint}`, {
+    method: 'DELETE',
+    headers: getHeaders(),
+  }),
 };
