@@ -1,7 +1,7 @@
-import { Settings as SettingsIcon, Bell, Moon, LogOut } from 'lucide-react'
-import { motion } from 'framer-motion'
-import { useAuth } from '../../context/AuthContext'
-import { useNavigate } from 'react-router-dom'
+import { Settings as SettingsIcon, Bell, Moon, LogOut, BarChart3 } from "lucide-react"
+import { motion } from "framer-motion"
+import { useAuth } from "../../context/AuthContext"
+import { useNavigate } from "react-router-dom"
 
 export default function Settings() {
   const { logout } = useAuth()
@@ -9,13 +9,12 @@ export default function Settings() {
 
   const handleLogout = () => {
     logout()
-    navigate('/')
+    navigate("/")
   }
 
   return (
     <div className="min-h-screen bg-slate-950 pt-24 px-6">
       <div className="max-w-3xl mx-auto">
-
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -53,6 +52,17 @@ export default function Settings() {
               </div>
               <span className="text-slate-400 text-sm">Activo</span>
             </div>
+
+            <button
+              onClick={() => navigate("/settings/reports")}
+              className="w-full flex items-center justify-between px-6 py-4 rounded-xl bg-slate-800/40 hover:bg-slate-800 transition"
+            >
+              <div className="flex items-center gap-3">
+                <BarChart3 className="text-emerald-400" />
+                <span className="text-white">Reports & Summary</span>
+              </div>
+              <span className="text-slate-400 text-sm">Ver</span>
+            </button>
 
             <button
               onClick={handleLogout}
