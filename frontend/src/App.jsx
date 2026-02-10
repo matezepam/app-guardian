@@ -17,6 +17,7 @@ import ImpactPost from "./pages/Impact/ImpactPost"
 
 import Profile from "./pages/Profile/Profile"
 import Settings from "./pages/Profile/Settings"
+import Reports from "./pages/Profile/Reports"
 
 import RecyclingGame from "./pages/RecyclingGame/RecyclingGame"
 import LeaderboardPage from "./pages/RecyclingGame/LeaderboardPage"
@@ -40,8 +41,10 @@ function App() {
               <Route path="/" element={<Landing />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+
               <Route path="/tips" element={<Tips />} />
               <Route path="/tips/:slug" element={<TipDetail />} />
+
               <Route path="/impact" element={<Impact />} />
               <Route path="/impact/:slug" element={<ImpactPost />} />
 
@@ -68,6 +71,15 @@ function App() {
                 element={
                   <PrivateRoute>
                     <Settings />
+                  </PrivateRoute>
+                }
+              />
+
+              <Route
+                path="/settings/reports"
+                element={
+                  <PrivateRoute>
+                    <Reports />
                   </PrivateRoute>
                 }
               />
