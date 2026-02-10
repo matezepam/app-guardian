@@ -135,3 +135,40 @@ app-guardian/
 ├── README.md
 └── .gitignore
 ```
+
+## ⚡ Instalación y Ejecución
+
+### Requisitos previos
+
+- Node.js (v18 o superior recomendado)
+- npm
+- PostgreSQL instalado y en ejecución
+- Base de datos creada en PostgreSQL
+
+### 1. Frontend
+
+```bash
+# Entrar al directorio
+cd frontend
+
+# Instalar dependencias
+npm install
+
+# Instalar dependencias
+npm run dev
+```
+
+### 2. Backend
+```bash
+# Entrar al directorio
+cd backend
+# Instalar dependencias
+npm install
+# Ejecutar Node para empezar a correr la Base de Datos
+node index.js
+
+```
+Crear archivo .env en la carpeta backend/ con el siguiente contenido:
+PORT=5000
+DATABASE_URL=postgres://usuario:contraseña@localhost:5432/guardian
+JWT_SECRET=tu_secreto_aqui_cambia_esto_por_algo_muy_seguro
