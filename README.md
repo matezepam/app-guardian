@@ -1,6 +1,6 @@
 # 🌱 Guardian
 
-**EcoGuardian** es una aplicación web diseñada para ayudar a las personas a **medir, entender y reducir su impacto ambiental**, enfocándose en el **consumo de agua, energía eléctrica y uso de plásticos**.  
+**Guardian** es una aplicación web diseñada para ayudar a las personas a **medir, entender y reducir su impacto ambiental**, enfocándose en el **consumo de agua, energía eléctrica y uso de plásticos**.  
 El objetivo principal es fomentar hábitos sostenibles mediante el registro y visualización de datos personales.
 
 ---
