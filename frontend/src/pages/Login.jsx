@@ -44,7 +44,7 @@ export default function Login() {
         />
         <div className="absolute inset-0 bg-green-900/40 backdrop-blur-[2px] flex items-center justify-center">
           <div className="text-white text-center p-12 max-w-xl">
-            <h2 className="text-4xl font-bold mb-6">Bienvenido a EcoGuardian</h2>
+            <h2 className="text-4xl font-bold mb-6">Bienvenido a Guardian</h2>
             <p className="text-xl text-green-50 leading-relaxed">Tu plataforma para monitorear y mejorar tu impacto en el medio ambiente. Cada pequeña acción cuenta.</p>
           </div>
         </div>
