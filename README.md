@@ -34,7 +34,7 @@ El objetivo principal es fomentar hábitos sostenibles mediante el registro y vi
 - PostgreSQL
 - Sequelize
 - JWT (JSON Web Tokens)
-- Multer (para subida de avatares)
+- Multer, subida de avatares
 
 ---
 
