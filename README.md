@@ -23,7 +23,7 @@ El objetivo principal es fomentar hábitos sostenibles mediante el registro y vi
 
 ### Frontend
 - React + Vite
-- React Router DOM
+- React Router
 - Tailwind CSS
 - Framer Motion
 - Context API (AuthContext)
