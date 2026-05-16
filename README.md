@@ -168,7 +168,10 @@ npm install
 node index.js
 
 ```
+### 3. ENV
+```bash
 Crear archivo .env en la carpeta backend/ con el siguiente contenido:
-PORT=5000
+PORT= 5000
 DATABASE_URL=postgres://usuario:contraseña@localhost:5432/guardian
-JWT_SECRET=tu_secreto_aqui_cambia_esto_por_algo_muy_seguro
+JWT_SECRET= something_secret
+```
